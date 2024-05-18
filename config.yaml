@@ -1,0 +1,11 @@
+name: "Home wizard Integration"
+description: "Home wizard Integration!"
+version: "1.0.0"
+slug: "home_wizard_integration"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
