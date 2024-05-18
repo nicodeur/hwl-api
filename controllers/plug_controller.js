@@ -82,6 +82,14 @@ module.exports = {
                         res.status(400).send(new ApiResponse("Invalid value. For dimmers you should provide an integer between 0 and 100", 400));
                     }
 
+                } if(req.body.type && req.body.type.toLowerCase() === "curtain") {
+                    if (req.body.value && typeof(req.body.value) === "string") {
+                        data = {
+                            action: req.body.value.toLowerCase() === "up" ? "Up" : "Down",
+                        }
+                    } else {
+                        res.status(400).send(new ApiResponse("Invalid value. For switches you should provide 'up' or 'down'", 400));
+                    }
                 } else {
                     // Plug is not a dimmer, so should be a switch
                     if (req.body.value && typeof(req.body.value) === "string") {
@@ -135,7 +143,7 @@ module.exports = {
                         })
                         .catch((e) => {
                             // Cannot communicate with HWL, returning error
-                            logger.error(`Can't communicate with HWL: ${e}`);
+                            logger.error(`Can't communicate with HWL: ${e} ${e.response.data.message}`);
                             res.status(400).send(new ApiResponse(`Can't communicate with HWL. Check logs`, 503));
                         });
                 }

@@ -34,6 +34,8 @@ module.exports = {
                     logger.debug(
                         `Received session key: ${response.data.session}`
                     );
+                    if(response.data?.failed === 'fail')
+                        log.error(response?.data.errorMessage)
                     cache.set("session", response.data.session);
                     return response.data.session;
                 })
